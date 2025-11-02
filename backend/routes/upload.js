@@ -5,7 +5,7 @@ import { verifyToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Configure multer
+// Multer setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) =>
@@ -14,13 +14,25 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Upload routes (root and alias /image) - protected
-const handler = (req, res) => {
-  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-  const baseUrl = `${req.protocol}://${req.get("host")}`;
-  res.json({ url: `${baseUrl}/uploads/${req.file.filename}` });
+// Helper: get consistent BASE_URL
+const getBaseUrl = (req) => {
+  // Prefer environment BASE_URL (for deployed environments)
+  if (process.env.BASE_URL) return process.env.BASE_URL;
+  // Fallback to dynamic host detection (local dev)
+  return `${req.protocol}://${req.get("host")}`;
 };
 
+// Upload route (protected)
+const handler = (req, res) => {
+  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+
+  const baseUrl = getBaseUrl(req);
+  const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+
+  res.json({ url: imageUrl });
+};
+
+// Routes
 router.post("/", verifyToken, upload.single("file"), handler);
 router.post("/image", verifyToken, upload.single("file"), handler);
 
