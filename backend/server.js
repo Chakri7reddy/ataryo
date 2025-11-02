@@ -17,12 +17,12 @@ const app = express();
 const corsOrigin = process.env.CORS_ORIGIN || "*";
 app.use(cors({ origin: corsOrigin }));
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+app.use("uploads", express.static("uploads"));
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/content", contentRoutes);
-app.use("/api/upload", uploadRoutes);
+app.use("api/auth", authRoutes);
+app.use("api/content", contentRoutes);
+app.use("api/upload", uploadRoutes);
 
 // DB connection
 mongoose
