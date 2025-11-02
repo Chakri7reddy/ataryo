@@ -19,7 +19,7 @@ const WhyWeExist: React.FC<WhyWeExistProps> = ({ data }) => {
       "Driving community upliftment",
       "Sustaining ecological balance",
     ],
-    image = "/assets/why-we-exist.jpg",
+    image = "",
   } = data || {};
 
   return (

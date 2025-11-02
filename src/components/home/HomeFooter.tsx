@@ -15,7 +15,7 @@ interface FooterProps {
 const HomeFooter: React.FC<FooterProps> = ({ data }) => {
   const {
     companyName = "Ataryo Labs",
-    logo = "/logo.png",
+    logo = "",
     contactEmail = "hello@ataryolabs.com",
     address = "Bengaluru, India",
     links = [
