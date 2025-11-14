@@ -44,11 +44,13 @@ const FIXED_TEMPLATES: Record<string, any> = {
       title: "",
       description:
         "",
+        image: "",
     },
     investment: {
       title: "",
       description:
         "",
+        image: "",
     },
   },
 
